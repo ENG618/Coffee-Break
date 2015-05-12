@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import MapKit
 
-class ViewController: UIViewController {
+class CoffeeMapViewController: UIViewController {
+    
+    @IBOutlet var mapView: MKMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,3 +26,9 @@ class ViewController: UIViewController {
 
 }
 
+extension CoffeeMapViewController {
+    
+    
+    
+    
+}
