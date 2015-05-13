@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CoffeeMapViewController.swift
 //  Coffee Break
 //
 //  Created by Eric Garcia on 5/11/15.
