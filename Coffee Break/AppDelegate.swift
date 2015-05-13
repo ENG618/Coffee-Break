@@ -51,10 +51,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     
     func setStyle() {
+        // Set status bar text to white
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+        
         let navBarAppearance = UINavigationBar.appearance()
         
+        // Navbar color
         navBarAppearance.barTintColor = primaryColor
+        // Navbar text color
         navBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName: accentColor]
+        // Navbar action color
         navBarAppearance.tintColor = actionColor
     }
 }
