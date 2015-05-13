@@ -12,8 +12,7 @@ import MapKit
 class CoffeeMapViewController: UIViewController {
     
     let initialLocation = CLLocation(latitude: 28.538942, longitude: -81.381453)
-    let regionRadius: CLLocationDistance = 1000
-    
+    let regionRadius: CLLocationDistance = 16093.4 // 10 miles = 16093.4 meters
     
     @IBOutlet var mapView: MKMapView!
     
@@ -49,7 +48,7 @@ class CoffeeMapViewController: UIViewController {
 extension CoffeeMapViewController {
     
     func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
 }
