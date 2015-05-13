@@ -12,10 +12,14 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    let primaryColor = UIColor(red: 64/255, green: 50/255, blue: 24/255, alpha: 1)
+    let accentColor = UIColor(red: 166/255, green: 160/255, blue: 129/255, alpha: 1)
+    let actionColor = UIColor(red: 255/255, green: 101/255, blue: 0/255, alpha: 1)
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        setStyle()
         return true
     }
 
@@ -42,5 +46,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+extension AppDelegate {
+    
+    func setStyle() {
+        let navBarAppearance = UINavigationBar.appearance()
+        
+        navBarAppearance.barTintColor = primaryColor
+        navBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName: accentColor]
+        navBarAppearance.tintColor = actionColor
+    }
 }
 
