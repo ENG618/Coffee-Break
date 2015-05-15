@@ -74,14 +74,12 @@ class Search: NSURLConnection {
 //            println("ID: \(venueID) Name: \(venueName) Lat: \(lat.description) Lng: \(lng.description) ")
             
             // Create istance of CoffeeShop
-            let shop = CoffeeShop(id: venueID, location: CLLocation(latitude: lat, longitude: lng), title: venueName)
+            let shop = CoffeeShop(id: venueID, title: venueName, coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng))
             // Append to parsed array
             parsedVenues.append(shop)
         }
         
-        for shop in parsedVenues {
-            println("Shop: \(shop.title)")
-        }
-        // TODO: send to map to add pins
+        // Pass to CoffeeMapViewController to add pins to map
+        CoffeeMapViewController.createPinsFromArray(parsedVenues)
     }
 }

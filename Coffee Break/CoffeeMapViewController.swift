@@ -58,6 +58,13 @@ extension CoffeeMapViewController {
     func addCoffeeShopPins() {
         search.searchLocation(userLocation)
     }
+    
+    class func createPinsFromArray(locationsArray: [CoffeeShop]) {
+        for shop in locationsArray {
+            println(shop.title)
+            // TODO: Create pin for each shop
+        }
+    }
 }
 
 // MARK: CLLocationManagerDelegate

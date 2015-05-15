@@ -9,15 +9,21 @@
 import Foundation
 import MapKit
 
-class CoffeeShop {
+class CoffeeShop: NSObject, MKAnnotation {
     
     var id: String
-    var location: CLLocation
     var title: String
+    var coordinate: CLLocationCoordinate2D
     
-    required init(id: String, location: CLLocation, title: String) {
+    init(id: String, title: String, coordinate: CLLocationCoordinate2D) {
         self.id = id
-        self.location = location
         self.title = title
+        self.coordinate = coordinate
+        
+        super.init()
+    }
+    
+    var subtitle: String {
+        return title
     }
 }
