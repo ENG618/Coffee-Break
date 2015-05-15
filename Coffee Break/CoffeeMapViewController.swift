@@ -54,6 +54,10 @@ extension CoffeeMapViewController {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
+    
+    func addCoffeeShopPins() {
+        
+    }
 }
 
 // MARK: CLLocationManagerDelegate
@@ -62,9 +66,12 @@ extension CoffeeMapViewController: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         let location = locations.last as! CLLocation
         
+        // Update users current location
         userLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        
+        // Center map on users current location
         centerMapOnLocation(userLocation)
+        
+        
         
     }
 }
