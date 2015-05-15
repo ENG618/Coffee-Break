@@ -19,7 +19,8 @@ class Search {
     // TODO: Create search methods
     
     private func search() {
-        var searchUrlString = "http://api.foursquare.com/v2/venues/search?client_id=\(ClientID)&client_secret=\(ClientSecret)&ll=\(lat!),\(long!)&radius=16093&query=coffee&openNow=1"
+        var searchUrl = NSURL(string: "http://api.foursquare.com/v2/venues/search?client_id=\(ClientID)&client_secret=\(ClientSecret)&ll=\(lat!),\(long!)&radius=16093&query=coffee&openNow=1")
+        
         
     }
 }

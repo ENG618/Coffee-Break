@@ -11,7 +11,9 @@ import MapKit
 
 class CoffeeMapViewController: UIViewController {
     
+    let search = Search()
     let initialLocation = CLLocation(latitude: 28.538942, longitude: -81.381453)
+    var userLocation: CLLocation!
     let regionRadius: CLLocationDistance = 16093.4 // 10 miles = 16093.4 meters
     
     @IBOutlet var mapView: MKMapView!
@@ -22,6 +24,7 @@ class CoffeeMapViewController: UIViewController {
         if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
             mapView.showsUserLocation = true
         } else {
+            // TODO: Show alert that location is required
             locationManager.requestWhenInUseAuthorization()
         }
     }
@@ -56,7 +59,18 @@ extension CoffeeMapViewController {
 // MARK: CLLocationManagerDelegate
 extension CoffeeMapViewController: CLLocationManagerDelegate {
     
-    
-    
-    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        let location = locations.last as! CLLocation
+        
+        userLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        
+        centerMapOnLocation(userLocation)
+        
+    }
 }
+
+
+
+
+
+
