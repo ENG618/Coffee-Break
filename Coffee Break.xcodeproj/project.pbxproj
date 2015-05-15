@@ -83,12 +83,10 @@
 			children = (
 				5CED82CB1B017FB800DA0CE4 /* AppDelegate.swift */,
 				5CED82CD1B017FB800DA0CE4 /* CoffeeMapViewController.swift */,
-				5CED82EB1B02EC9D00DA0CE4 /* Search.swift */,
-				5CED82CF1B017FB800DA0CE4 /* Main.storyboard */,
+				5CED82F91B06689800DA0CE4 /* Data */,
+				5CED82FA1B0668AF00DA0CE4 /* UI */,
 				5CED82D21B017FB800DA0CE4 /* Images.xcassets */,
-				5CED82D41B017FB800DA0CE4 /* LaunchScreen.xib */,
 				5CED82C91B017FB800DA0CE4 /* Supporting Files */,
-				5CED82F71B0666A900DA0CE4 /* CoffeeShop.swift */,
 			);
 			path = "Coffee Break";
 			sourceTree = "<group>";
@@ -116,6 +114,24 @@
 				5CED82E01B017FB800DA0CE4 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5CED82F91B06689800DA0CE4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				5CED82EB1B02EC9D00DA0CE4 /* Search.swift */,
+				5CED82F71B0666A900DA0CE4 /* CoffeeShop.swift */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		5CED82FA1B0668AF00DA0CE4 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				5CED82CF1B017FB800DA0CE4 /* Main.storyboard */,
+				5CED82D41B017FB800DA0CE4 /* LaunchScreen.xib */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
