@@ -56,7 +56,7 @@ extension CoffeeMapViewController {
     }
     
     func addCoffeeShopPins() {
-        
+        search.searchLocation(userLocation)
     }
 }
 
@@ -71,7 +71,7 @@ extension CoffeeMapViewController: CLLocationManagerDelegate {
         // Center map on users current location
         centerMapOnLocation(userLocation)
         
-        
+        addCoffeeShopPins()
         
     }
 }

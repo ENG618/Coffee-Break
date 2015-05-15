@@ -11,11 +11,13 @@ import MapKit
 
 class CoffeeShop {
     
+    var id: String
     var location: CLLocation
     var title: String
     var description: String
     
-    required init(location: CLLocation, title: String, description: String) {
+    required init(id: String, location: CLLocation, title: String, description: String) {
+        self.id = id
         self.location = location
         self.title = title
         self.description = description
