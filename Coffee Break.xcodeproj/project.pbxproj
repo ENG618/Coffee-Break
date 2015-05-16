@@ -90,6 +90,7 @@
 				5CED82F91B06689800DA0CE4 /* Data */,
 				5CED82FA1B0668AF00DA0CE4 /* UI */,
 				5CED82D21B017FB800DA0CE4 /* Images.xcassets */,
+				5CED83071B07384500DA0CE4 /* Images */,
 				5CED82C91B017FB800DA0CE4 /* Supporting Files */,
 			);
 			path = "Coffee Break";
@@ -98,9 +99,6 @@
 		5CED82C91B017FB800DA0CE4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				5CED83051B0725B200DA0CE4 /* Center Direction-32.png */,
-				5CED82FF1B070E7700DA0CE4 /* poweredby-black.png */,
-				5CED83001B070E7700DA0CE4 /* poweredby-black@2x.png */,
 				5CED82CA1B017FB800DA0CE4 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -138,6 +136,16 @@
 				5CED82D41B017FB800DA0CE4 /* LaunchScreen.xib */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		5CED83071B07384500DA0CE4 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				5CED83051B0725B200DA0CE4 /* Center Direction-32.png */,
+				5CED82FF1B070E7700DA0CE4 /* poweredby-black.png */,
+				5CED83001B070E7700DA0CE4 /* poweredby-black@2x.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
