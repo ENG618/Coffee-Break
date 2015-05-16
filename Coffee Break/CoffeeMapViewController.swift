@@ -11,10 +11,17 @@ import MapKit
 
 class CoffeeMapViewController: UIViewController {
     
-    let search = Search()
+    private let ClientID = "OLXCMXPWEIJ4JXBCWMD5JIPMXQGX02S15LHZHIHZMRIXCFG2"
+    private let ClientSecret = "0CBC51OH2ZVGSZYWYDJ5WSUWLLSIH5AHRDZUNYJRBCCTZNKN"
+    
+    var lat:String!
+    var long:String!
+    
     let initialLocation = CLLocation(latitude: 28.538942, longitude: -81.381453)
     var userLocation: CLLocation!
     let regionRadius: CLLocationDistance = 16093.4 // 10 miles = 16093.4 meters
+    
+    var coffeeShops: [CoffeeShop] = []
     
     @IBOutlet var mapView: MKMapView!
     
@@ -28,7 +35,7 @@ class CoffeeMapViewController: UIViewController {
             locationManager.requestWhenInUseAuthorization()
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         checkLocationAuthorizationStatus()
@@ -38,13 +45,13 @@ class CoffeeMapViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         locationManager.delegate = self
         // Set accuracy
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         // Set distance filter
         locationManager.distanceFilter = 100
         // Start updating location
         locationManager.startUpdatingLocation()
     }
-
+    
 }
 
 // MARK: Class Helpers
@@ -56,14 +63,24 @@ extension CoffeeMapViewController {
     }
     
     func addCoffeeShopPins() {
-        search.searchLocation(userLocation)
+//        search.searchLocation(userLocation)
+        searchLocation(userLocation)
     }
     
-    class func createPinsFromArray(locationsArray: [CoffeeShop]) {
+    func createPinsFromArray(locationsArray: [CoffeeShop]) {
         for shop in locationsArray {
-            println(shop.title)
-            // TODO: Create pin for each shop
+            addPinToMap(shop)
         }
+        
+    }
+    
+    func addPinToMap(shop: CoffeeShop) {
+            
+        let newPin = MKPointAnnotation()
+        newPin.coordinate = shop.coordinate
+        newPin.title = shop.title
+        mapView.addAnnotation(newPin)
+        
     }
 }
 
@@ -79,6 +96,74 @@ extension CoffeeMapViewController: CLLocationManagerDelegate {
         centerMapOnLocation(userLocation)
         
         addCoffeeShopPins()
+    }
+}
+
+// MARK: Search
+extension CoffeeMapViewController {
+    
+    func searchLocation(location: CLLocation) {
+        lat = String(stringInterpolationSegment: location.coordinate.latitude)
+        long = String(stringInterpolationSegment: location.coordinate.longitude)
+        println("Latitude: \(lat), Longitude: \(long)")
+        searchFoursquare()
+    }
+    
+    private func searchFoursquare() {
+        var searchUrl = NSURL(string: "http://api.foursquare.com/v2/venues/search?client_id=\(ClientID)&client_secret=\(ClientSecret)&ll=\(lat!),\(long!)&radius=16093&query=coffee&openNow=1&v=20150501&m=foursquare")
+        
+        // Create session & task
+        let session = NSURLSession.sharedSession()
+        let sessionTask = session.dataTaskWithURL(searchUrl!, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+            if let responseError = error {
+                println("Error: \(error)")
+            } else {
+                self.parseJSON(self.jsonFromData(data))
+            }
+        })
+        // Run task
+        sessionTask.resume()
+    }
+    
+    private func jsonFromData(data: NSData) -> NSDictionary {
+        var jsonError: NSError?
+        let jsonData: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError) as! NSDictionary
+        
+        return jsonData
+    }
+    
+    private func parseJSON(jsonData: NSDictionary) {
+        
+        var parsedVenues: [CoffeeShop] = []
+        
+        let response = jsonData["response"] as! NSDictionary
+        let venues = response["venues"] as! [NSDictionary]
+        
+        for venue in venues {
+            
+            // ID
+            let venueID = venue["id"] as! String
+            
+            // Name
+            let venueName = venue["name"] as! String
+            
+            // Location Dictionary
+            let locationDictionary = venue["location"] as! NSDictionary
+            
+            // Lat Lng
+            let lat = locationDictionary["lat"] as! CLLocationDegrees
+            let lng = locationDictionary["lng"] as! CLLocationDegrees
+            
+            // Create istance of CoffeeShop
+            let shop = CoffeeShop(id: venueID, title: venueName, coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng))
+            // Append to parsed array
+            parsedVenues.append(shop)
+            
+            let CMVC = CoffeeMapViewController()
+        }
+        
+        // Pass to CoffeeMapViewController to add pins to map
+        createPinsFromArray(parsedVenues)
         
     }
 }

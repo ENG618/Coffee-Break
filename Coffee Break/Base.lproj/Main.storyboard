@@ -19,12 +19,21 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="OA8-00-9PK">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                             </mapView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="poweredby-black.png" translatesAutoresizingMaskIntoConstraints="NO" id="X7j-Iy-FPQ">
+                                <rect key="frame" x="430" y="572" width="170" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="170" id="vcr-st-eZd"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="OA8-00-9PK" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="hYH-lP-kT4"/>
-                            <constraint firstItem="OA8-00-9PK" firstAttribute="bottom" secondItem="2fi-mo-0CV" secondAttribute="top" id="oAc-Hr-mTv"/>
-                            <constraint firstItem="OA8-00-9PK" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="qHf-Hn-48m"/>
-                            <constraint firstAttribute="trailing" secondItem="OA8-00-9PK" secondAttribute="trailing" id="zq2-TV-UIP"/>
+                            <constraint firstItem="X7j-Iy-FPQ" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="508" id="6ac-Tn-s8B"/>
+                            <constraint firstItem="OA8-00-9PK" firstAttribute="bottom" secondItem="2fi-mo-0CV" secondAttribute="top" id="CdI-Hj-vxX"/>
+                            <constraint firstAttribute="trailing" secondItem="X7j-Iy-FPQ" secondAttribute="trailing" id="LpU-W9-b7Z"/>
+                            <constraint firstItem="OA8-00-9PK" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="MZf-LP-RWY"/>
+                            <constraint firstItem="X7j-Iy-FPQ" firstAttribute="bottom" secondItem="2fi-mo-0CV" secondAttribute="top" id="cmQ-Z1-fMD"/>
+                            <constraint firstItem="OA8-00-9PK" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="sfI-gM-gRH"/>
+                            <constraint firstItem="X7j-Iy-FPQ" firstAttribute="trailing" secondItem="OA8-00-9PK" secondAttribute="trailing" id="svV-R2-Oyr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Coffee Break" id="OSN-lt-wqQ"/>
@@ -55,5 +64,8 @@
             <point key="canvasLocation" x="744" y="-229"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="poweredby-black.png" width="300" height="50"/>
+    </resources>
     <color key="tintColor" red="1" green="0.396078431372549" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
