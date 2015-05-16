@@ -36,7 +36,13 @@
                             <constraint firstItem="X7j-Iy-FPQ" firstAttribute="trailing" secondItem="OA8-00-9PK" secondAttribute="trailing" id="svV-R2-Oyr"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Coffee Break" id="OSN-lt-wqQ"/>
+                    <navigationItem key="navigationItem" title="Coffee Break" id="OSN-lt-wqQ">
+                        <barButtonItem key="rightBarButtonItem" image="Center Direction-32.png" id="e5b-eY-1H8">
+                            <connections>
+                                <action selector="centerMap:" destination="vXZ-lx-hvc" id="kl6-sE-sGq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="OA8-00-9PK" id="9Gc-Xs-4YC"/>
                     </connections>
@@ -65,6 +71,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Center Direction-32.png" width="32" height="32"/>
         <image name="poweredby-black.png" width="300" height="50"/>
     </resources>
     <color key="tintColor" red="1" green="0.396078431372549" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -13,9 +13,9 @@ class CoffeeMapViewController: UIViewController {
     
     private let ClientID = "OLXCMXPWEIJ4JXBCWMD5JIPMXQGX02S15LHZHIHZMRIXCFG2"
     private let ClientSecret = "0CBC51OH2ZVGSZYWYDJ5WSUWLLSIH5AHRDZUNYJRBCCTZNKN"
-    
-    var lat:String!
-    var long:String!
+//    
+//    var lat:String!
+//    var long:String!
     
     let initialLocation = CLLocation(latitude: 28.538942, longitude: -81.381453)
     var userLocation: CLLocation!
@@ -24,6 +24,9 @@ class CoffeeMapViewController: UIViewController {
     var coffeeShops: [CoffeeShop] = []
     
     @IBOutlet var mapView: MKMapView!
+    @IBAction func centerMap(sender: AnyObject) {
+        locationManager.startUpdatingLocation()
+    }
     
     // MARK: Location Manager
     var locationManager = CLLocationManager()
@@ -50,6 +53,7 @@ class CoffeeMapViewController: UIViewController {
         locationManager.distanceFilter = 100
         // Start updating location
         locationManager.startUpdatingLocation()
+        //        locationManager.startMonitoringSignificantLocationChanges()
     }
     
 }
@@ -62,11 +66,6 @@ extension CoffeeMapViewController {
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
-    func addCoffeeShopPins() {
-//        search.searchLocation(userLocation)
-        searchLocation(userLocation)
-    }
-    
     func createPinsFromArray(locationsArray: [CoffeeShop]) {
         for shop in locationsArray {
             addPinToMap(shop)
@@ -75,7 +74,7 @@ extension CoffeeMapViewController {
     }
     
     func addPinToMap(shop: CoffeeShop) {
-            
+        
         let newPin = MKPointAnnotation()
         newPin.coordinate = shop.coordinate
         newPin.title = shop.title
@@ -88,14 +87,14 @@ extension CoffeeMapViewController {
 extension CoffeeMapViewController: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        let location = locations.last as! CLLocation
-        
-        // Update users current location
-        userLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        // Center map on users current location
-        centerMapOnLocation(userLocation)
-        
-        addCoffeeShopPins()
+        if let location = locations.last as? CLLocation {
+            
+            // Update users current location
+            userLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            // Center map on users current location
+            centerMapOnLocation(userLocation)
+            searchLocation(userLocation)
+        }
     }
 }
 
@@ -103,14 +102,19 @@ extension CoffeeMapViewController: CLLocationManagerDelegate {
 extension CoffeeMapViewController {
     
     func searchLocation(location: CLLocation) {
-        lat = String(stringInterpolationSegment: location.coordinate.latitude)
-        long = String(stringInterpolationSegment: location.coordinate.longitude)
-        println("Latitude: \(lat), Longitude: \(long)")
-        searchFoursquare()
+        let lat = String(stringInterpolationSegment: location.coordinate.latitude)
+        let lng = String(stringInterpolationSegment: location.coordinate.longitude)
+        println("Latitude: \(lat), Longitude: \(lng)")
+        searchFoursquare(lat, lng: lng)
+        
+        // Stop
+        locationManager.stopUpdatingLocation()
+        // Start segnificant changes
+        locationManager.startMonitoringSignificantLocationChanges()
     }
     
-    private func searchFoursquare() {
-        var searchUrl = NSURL(string: "http://api.foursquare.com/v2/venues/search?client_id=\(ClientID)&client_secret=\(ClientSecret)&ll=\(lat!),\(long!)&radius=16093&query=coffee&openNow=1&v=20150501&m=foursquare")
+    private func searchFoursquare(lat: String, lng: String) {
+        var searchUrl = NSURL(string: "http://api.foursquare.com/v2/venues/search?client_id=\(ClientID)&client_secret=\(ClientSecret)&ll=\(lat),\(lng)&radius=16093&query=coffee&openNow=1&v=20150501&m=foursquare")
         
         // Create session & task
         let session = NSURLSession.sharedSession()
