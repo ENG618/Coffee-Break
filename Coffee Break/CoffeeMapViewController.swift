@@ -22,6 +22,7 @@ class CoffeeMapViewController: UIViewController {
     @IBOutlet var mapView: MKMapView!
     @IBAction func centerMap(sender: AnyObject) {
         checkLocationAuthorizationStatus()
+        mapView.removeAnnotations(mapView.annotations)
         locationManager.startUpdatingLocation()
     }
     
@@ -62,7 +63,6 @@ class CoffeeMapViewController: UIViewController {
         locationManager.distanceFilter = 100
         // Start updating location
         locationManager.startUpdatingLocation()
-        //        locationManager.startMonitoringSignificantLocationChanges()
     }
     
 }
@@ -88,7 +88,6 @@ extension CoffeeMapViewController {
         newPin.coordinate = shop.coordinate
         newPin.title = shop.title
         mapView.addAnnotation(newPin)
-        
     }
     
     func showLocationRequiredAlert() {
@@ -129,7 +128,7 @@ extension CoffeeMapViewController {
         println("Latitude: \(lat), Longitude: \(lng)")
         searchFoursquare(lat, lng: lng)
         
-        // Stop
+        // Stop updated location
         locationManager.stopUpdatingLocation()
         // Start segnificant changes
         locationManager.startMonitoringSignificantLocationChanges()
