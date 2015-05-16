@@ -13,11 +13,7 @@ class CoffeeMapViewController: UIViewController {
     
     private let ClientID = "OLXCMXPWEIJ4JXBCWMD5JIPMXQGX02S15LHZHIHZMRIXCFG2"
     private let ClientSecret = "0CBC51OH2ZVGSZYWYDJ5WSUWLLSIH5AHRDZUNYJRBCCTZNKN"
-//    
-//    var lat:String!
-//    var long:String!
     
-    let initialLocation = CLLocation(latitude: 28.538942, longitude: -81.381453)
     var userLocation: CLLocation!
     let regionRadius: CLLocationDistance = 16093.4 // 10 miles = 16093.4 meters
     
@@ -25,27 +21,40 @@ class CoffeeMapViewController: UIViewController {
     
     @IBOutlet var mapView: MKMapView!
     @IBAction func centerMap(sender: AnyObject) {
+        checkLocationAuthorizationStatus()
         locationManager.startUpdatingLocation()
     }
     
     // MARK: Location Manager
-    var locationManager = CLLocationManager()
+    let locationManager = CLLocationManager()
     func checkLocationAuthorizationStatus() {
-        if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
+        let authStatus = CLLocationManager.authorizationStatus()
+        
+        switch authStatus {
+        case .AuthorizedWhenInUse:
             mapView.showsUserLocation = true
-        } else {
-            // TODO: Show alert that location is required
+        case .AuthorizedAlways:
+            println("Always Authorized")
+            mapView.showsUserLocation = true
+        case .Restricted:
+            println("Restricted")
+            showLocationRequiredAlert()
+        case .Denied:
+            println("Denied")
+            showLocationRequiredAlert()
+        case .NotDetermined:
             locationManager.requestWhenInUseAuthorization()
         }
     }
     
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         checkLocationAuthorizationStatus()
-        centerMapOnLocation(initialLocation)
     }
     
     override func viewDidAppear(animated: Bool) {
+        
         locationManager.delegate = self
         // Set accuracy
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -80,6 +89,19 @@ extension CoffeeMapViewController {
         newPin.title = shop.title
         mapView.addAnnotation(newPin)
         
+    }
+    
+    func showLocationRequiredAlert() {
+        let alertController = UIAlertController(title: "Location Access Required", message: "Go to settings and allow location access while using the app, so we can locate coffee shops near you.", preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Settings", style: UIAlertActionStyle.Default, handler: {(_) -> Void in
+            let settingsUrl = NSURL(string: UIApplicationOpenSettingsURLString)
+            if let url = settingsUrl {
+                UIApplication.sharedApplication().openURL(url)
+            }
+        }))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
 }
 

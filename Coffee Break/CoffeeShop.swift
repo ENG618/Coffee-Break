@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-class CoffeeShop: NSObject, MKAnnotation {
+class CoffeeShop {
     
     var id: String
     var title: String
@@ -19,8 +19,6 @@ class CoffeeShop: NSObject, MKAnnotation {
         self.id = id
         self.title = title
         self.coordinate = coordinate
-        
-        super.init()
     }
     
     var subtitle: String {
